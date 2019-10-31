@@ -12,17 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).anyRequest();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/", "/join").permitAll()
+                .mvcMatchers("/", "/login", "/member/join").permitAll()
                 .anyRequest().authenticated();
-        http.httpBasic();
         http.formLogin()
                 .loginPage("/login").permitAll();
+        http.httpBasic();
         http.logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");

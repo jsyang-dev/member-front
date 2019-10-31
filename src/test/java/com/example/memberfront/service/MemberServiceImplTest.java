@@ -35,7 +35,7 @@ public class MemberServiceImplTest {
         given(this.restTemplateHelper.getForEntity(eq(Member.class), any(String.class))).willReturn(member);
 
         //when
-        final Member readMember = memberService.readMember(member.getUsername());
+        final Member readMember = this.memberService.readMember(member.getUsername());
 
         //then
         assertThat(readMember.getUsername(), is(readMember.getUsername()));

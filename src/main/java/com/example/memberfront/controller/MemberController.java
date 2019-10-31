@@ -22,7 +22,8 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join(Model model) {
-        model.addAttribute("user", new Member());
+        model.addAttribute("member", new Member());
+        model.addAttribute("title", "회원가입");
         return "member";
     }
 
@@ -36,13 +37,14 @@ public class MemberController {
     public String modify(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Member member = this.memberService.readMember(userDetails.getUsername());
-        model.addAttribute("user", member);
+        model.addAttribute("member", member);
+        model.addAttribute("title", "회원수정");
         return "member";
     }
 
     @PostMapping("/modify")
     public String processModify(@ModelAttribute Member member) {
-        this.memberService.createMember(member);
+        this.memberService.modifyMember(member);
         return "redirect:/";
     }
 }
