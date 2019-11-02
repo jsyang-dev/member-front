@@ -1,5 +1,6 @@
 package com.example.memberfront.controller;
 
+import com.example.memberfront.annotation.WithUser;
 import com.example.memberfront.dto.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ public class MemberControllerTest {
     MockMvc mockMvc;
 
     @Test
+    @WithUser
     public void join() throws Exception {
         //when
         final ResultActions actions = this.mockMvc.perform(get("/member/join"));

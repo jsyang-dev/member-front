@@ -7,28 +7,40 @@
     <link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body>
-<div class="container">
-    <div class="card card-register">
-        <div class="card-body">
-            <div class="form-group row">
-                <label for="status" class="col-sm-3 col-form-label">로그인 ID</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="status" value="not logged in" readonly/>
+<div class="wrapper py-5 bg-light">
+    <div class="container">
+        <div class="card card-register">
+            <div class="card-body">
+                <div class="form-group row pt-3">
+                    <label for="status" class="col-sm-3 col-form-label">현재 아이디</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="status" th:value="${username}" readonly/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="form-group col-sm-6">
-                    <a class="btn btn-light btn-block" type="button" href="/login">로그인</a>
-                </div>
-                <div class="form-group col-sm-6">
-                    <a class="btn btn-light btn-block" type="button" href="/member/join">회원가입</a>
+                <div class="form-group row">
+                    <div class="form-group col-sm-6">
+                        <input class="btn btn-light btn-block" type="button" value="로그인"
+                               onclick="location.href='/login'" th:if="${isLogin == false}"/>
+                        <th:block th:if="${isLogin == true}">
+                            <form action="/logout" th:action="@{/logout}" method="post">
+                                <input class="btn btn-light btn-block" type="submit" value="로그아웃"
+                                       th:if="${isLogin == true}"/>
+                            </form>
+                        </th:block>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <input class="btn btn-light btn-block" type="button" value="회원가입"
+                               onclick="location.href='/member/join'" th:if="${isLogin == false}"/>
+                        <input class="btn btn-light btn-block" type="button" value="회원정보수정"
+                               onclick="location.href='/member/modify'" th:if="${isLogin == true}"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script th:src="@{/dist/jquery/jquery.min.js}"></script>
-<script th:src="@{/dist/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

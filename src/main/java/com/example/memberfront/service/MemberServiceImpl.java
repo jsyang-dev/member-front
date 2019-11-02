@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
                 .scheme(this.scheme)
                 .host(this.host)
                 .port(this.port)
-                .path("/member")
+                .path("/api/v1/account")
                 .path("/" + username)
                 .build(true);
 
@@ -38,19 +38,26 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void createMember(Member member) {
+    public String createMember(Member member) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme(this.scheme)
                 .host(this.host)
                 .port(this.port)
-                .path("/member")
+                .path("/api/v1/account")
                 .build(true);
 
-        this.restTemplateHelper.postForEntity(Member.class, uriComponents.toUriString(), member);
+        return this.restTemplateHelper.postForEntity(String.class, uriComponents.toUriString(), member);
     }
 
     @Override
-    public void modifyMember(Member member) {
+    public String modifyMember(Member member) {
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .scheme(this.scheme)
+                .host(this.host)
+                .port(this.port)
+                .path("/api/v1/account")
+                .build(true);
 
+        return this.restTemplateHelper.putForEntity(String.class, uriComponents.toUriString(), member);
     }
 }

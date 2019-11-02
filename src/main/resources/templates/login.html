@@ -12,33 +12,38 @@
         <div class="card card-register">
             <div class="card-header">로그인</div>
             <div class="card-body">
-                <div class="form-group row">
-                    <label for="username" class="col-sm-2 col-form-label">아이디</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="username" id="username"/>
+                <form action="/login" th:action="@{/login}" method="post">
+                    <div class="row mx-1" th:if="${param.error}">
+                        <div class="col-sm-12 alert alert-danger">로그인에 실패하였습니다.</div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="password" class="col-sm-2 col-form-label">패스워드</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" name="password" id="password"/>
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-3 col-form-label">아이디</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="username" id="username"/>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="form-group col-sm-6">
-                        <button class="btn btn-primary btn-block" type="submit">확인</button>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">패스워드</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" name="password" id="password"/>
+                        </div>
                     </div>
-                    <div class="form-group col-sm-6">
-                        <button class="btn btn-secondary btn-block" type="button" onclick="history.back()">취소</button>
+                    <div class="form-group row">
+                        <div class="form-group col-sm-6">
+                            <input class="btn btn-primary btn-block" type="submit" value="확인"/>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <input class="btn btn-secondary btn-block" type="button" value="취소"
+                                   onclick="history.back()"/>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-
-<script th:src="@{/dist/jquery/jquery.min.js}"></script>
-<script th:src="@{/dist/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.example.memberfront.service;
 
 import com.example.memberfront.common.RestTemplateHelperImpl;
 import com.example.memberfront.dto.Member;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,32 +17,51 @@ import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MemberServiceImplTest {
+    private Member member;
+
     @InjectMocks
     private MemberServiceImpl memberService;
 
     @Mock
     private RestTemplateHelperImpl restTemplateHelper;
 
-    @Test
-    public void Should_정상_반환_When_회원_조회() {
-        //given
-        Member member = Member.builder()
+    @Before
+    public void setUp() {
+        this.member = Member.builder()
                 .username("user1")
                 .password("1234")
                 .name("아이유")
                 .phone("01012345678")
                 .email("user1@domain.com")
                 .build();
-        given(this.restTemplateHelper.getForEntity(eq(Member.class), any(String.class))).willReturn(member);
+    }
+
+    @Test
+    public void Should_정상_반환_When_회원_조회() {
+        //given
+        given(this.restTemplateHelper.getForEntity(eq(Member.class), any(String.class))).willReturn(this.member);
 
         //when
-        final Member readMember = this.memberService.readMember(member.getUsername());
+        final Member readMember = this.memberService.readMember(this.member.getUsername());
 
         //then
-        assertThat(readMember.getUsername(), is(readMember.getUsername()));
-        assertThat(readMember.getPassword(), is(readMember.getPassword()));
-        assertThat(readMember.getName(), is(readMember.getName()));
-        assertThat(readMember.getPhone(), is(readMember.getPhone()));
-        assertThat(readMember.getEmail(), is(readMember.getEmail()));
+        assertThat(readMember.getUsername(), is(this.member.getUsername()));
+        assertThat(readMember.getPassword(), is(this.member.getPassword()));
+        assertThat(readMember.getName(), is(this.member.getName()));
+        assertThat(readMember.getPhone(), is(this.member.getPhone()));
+        assertThat(readMember.getEmail(), is(this.member.getEmail()));
     }
+
+    @Test
+    public void Should_아이디_반환_When_회원_저장() {
+        //given
+        given(this.restTemplateHelper.postForEntity(eq(String.class), any(String.class), eq(this.member))).willReturn(this.member.getUsername());
+
+        //when
+        final String username = this.memberService.createMember(this.member);
+
+        //then
+        assertThat(username, is(this.member.getUsername()));
+    }
+
 }
