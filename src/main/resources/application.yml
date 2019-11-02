@@ -1,1 +1,40 @@
+spring:
+  profiles:
+    active: local
 
+server:
+  port: 8080
+
+---
+spring:
+  profiles: local
+  thymeleaf:
+    cache: false
+  resources:
+    static-locations: classpath:/static/
+
+logging:
+  level:
+    #    org.springframework.security: DEBUG
+    com.example.memberfront: INFO
+
+app:
+  api:
+    member:
+      scheme: http
+      host: localhost
+      port: 8081
+---
+spring:
+  profiles: dev
+  thymeleaf:
+    cache: false
+  resources:
+    static-locations: classpath:/static/
+
+app:
+  api:
+    member:
+      scheme: http
+      host: localhost
+      port: 8081
