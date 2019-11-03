@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @Slf4j
@@ -51,7 +52,7 @@ public class RestTemplateHelperImpl implements RestTemplateHelper {
         List<T> result = null;
 
         try {
-            result = this.objectMapper.readValue(response.getBody(), type);
+            result = this.objectMapper.readValue(Objects.requireNonNull(response.getBody()), type);
         } catch (IOException e) {
             log.info(e.getMessage());
         }
@@ -70,7 +71,7 @@ public class RestTemplateHelperImpl implements RestTemplateHelper {
             if (clazz == String.class) {
                 result = (T) response.getBody();
             } else {
-                result = this.objectMapper.readValue(response.getBody(), type);
+                result = this.objectMapper.readValue(Objects.requireNonNull(response.getBody()), type);
             }
         } catch (IOException e) {
             log.info(e.getMessage());
@@ -90,7 +91,7 @@ public class RestTemplateHelperImpl implements RestTemplateHelper {
             if (clazz == String.class) {
                 result = (T) response.getBody();
             } else {
-                result = this.objectMapper.readValue(response.getBody(), type);
+                result = this.objectMapper.readValue(Objects.requireNonNull(response.getBody()), type);
             }
         } catch (IOException e) {
             log.info(e.getMessage());

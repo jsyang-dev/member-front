@@ -64,4 +64,15 @@ public class MemberServiceImplTest {
         assertThat(username, is(this.member.getUsername()));
     }
 
+    @Test
+    public void Should_아이디_반환_When_회원정보_수정() {
+        //given
+        given(this.restTemplateHelper.putForEntity(eq(String.class), any(String.class), eq(this.member))).willReturn(this.member.getUsername());
+
+        //when
+        final String username = this.memberService.modifyMember(this.member);
+
+        //then
+        assertThat(username, is(this.member.getUsername()));
+    }
 }
