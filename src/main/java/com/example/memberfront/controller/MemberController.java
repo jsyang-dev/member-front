@@ -1,6 +1,6 @@
 package com.example.memberfront.controller;
 
-import com.example.memberfront.dto.Member;
+import com.example.memberfront.dto.Account;
 import com.example.memberfront.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,35 +26,35 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join(Model model) {
-        model.addAttribute("member", new Member());
+        model.addAttribute("account", new Account());
         return "join";
     }
 
     @PostMapping("/join")
-    public String processJoin(@ModelAttribute @Valid Member member, BindingResult bindingResult) {
+    public String processJoin(@ModelAttribute @Valid Account account, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "join";
         }
 
-        String username = memberService.createMember(member);
+        String username = memberService.createMember(account);
         log.info("joined username = " + username);
         return "redirect:/";
     }
 
     @GetMapping("/modify")
     public String modify(Model model, Principal principal) {
-        Member member = this.memberService.readMember(principal.getName());
-        model.addAttribute("member", member);
+        Account account = this.memberService.readMember(principal.getName());
+        model.addAttribute("account", account);
         return "modify";
     }
 
     @PostMapping("/modify")
-    public String processModify(@ModelAttribute @Valid Member member, BindingResult bindingResult) {
+    public String processModify(@ModelAttribute @Valid Account account, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "modify";
         }
 
-        String username = this.memberService.modifyMember(member);
+        String username = this.memberService.modifyMember(account);
         log.info("modified username = " + username);
         return "redirect:/";
     }
