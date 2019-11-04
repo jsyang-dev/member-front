@@ -1,6 +1,6 @@
 package com.example.memberfront.controller;
 
-import com.example.memberfront.dto.Member;
+import com.example.memberfront.dto.Account;
 import com.example.memberfront.service.MemberServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +41,7 @@ public class MemberControllerTest {
         actions.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("join"))
-                .andExpect(model().attribute("member", instanceOf(Member.class)))
+                .andExpect(model().attribute("account", instanceOf(Account.class)))
                 .andExpect(content().string(containsString("_csrf")));
     }
 
@@ -80,14 +80,14 @@ public class MemberControllerTest {
     @WithMockUser
     public void Should_정상_리턴_회원정보수정_페이지_호출() throws Exception {
         //given
-        Member member = Member.builder()
+        Account account = Account.builder()
                 .username("user")
                 .password("1234")
                 .name("아이유")
                 .phone("01012345678")
                 .email("user1@domain.com")
                 .build();
-        given(this.memberService.readMember("user")).willReturn(member);
+        given(this.memberService.readMember("user")).willReturn(account);
 
         //when
         final ResultActions actions = this.mockMvc.perform(get("/member/modify"));
@@ -96,7 +96,7 @@ public class MemberControllerTest {
         actions.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("modify"))
-                .andExpect(model().attribute("member", instanceOf(Member.class)))
+                .andExpect(model().attribute("account", instanceOf(Account.class)))
                 .andExpect(content().string(containsString("_csrf")))
                 .andExpect(content().string(containsString("value=\"user\"")))
                 .andExpect(content().string(containsString("value=\"아이유\"")))

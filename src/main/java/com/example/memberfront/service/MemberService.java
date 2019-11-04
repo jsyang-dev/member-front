@@ -1,11 +1,11 @@
 package com.example.memberfront.service;
 
-import com.example.memberfront.dto.Member;
+import com.example.memberfront.dto.Account;
 
 public interface MemberService {
-    Member readMember(String username);
+    Account readMember(String username);
 
-    String createMember(Member member);
+    String createMember(Account account);
 
-    String modifyMember(Member member);
+    String modifyMember(Account account);
 }

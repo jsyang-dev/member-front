@@ -1,6 +1,6 @@
 package com.example.memberfront.service;
 
-import com.example.memberfront.dto.Member;
+import com.example.memberfront.dto.Account;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,14 +17,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberService.readMember(username);
-        if (member == null) {
+        Account account = memberService.readMember(username);
+        if (account == null) {
             throw new UsernameNotFoundException(username);
         }
 
         return User.builder()
-                .username(member.getUsername())
-                .password("{noop}" + member.getPassword())
+                .username(account.getUsername())
+                .password("{noop}" + account.getPassword())
                 .roles("USER")
                 .build();
     }

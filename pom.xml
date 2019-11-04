@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>member-front</artifactId>
+    <artifactId>account-front</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>member-front</name>
-    <description>Front project for managing member</description>
+    <name>account-front</name>
+    <description>Front project for managing account</description>
 
     <properties>
         <java.version>1.8</java.version>
